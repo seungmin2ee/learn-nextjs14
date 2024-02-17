@@ -34,6 +34,9 @@ export default function Navigation() {
 // client component 전체가 hydrate되는게 아니라 필요한 부분만 hydrate. 예를 들어 이벤트기능 있는 버튼이나 네비게이션바 등등
 // 페이지접속 -> <button>0</button> -> 😀 -> <button onClick={}>0</button> -> 😍
 // 사용자가 페이지에 접속하면 0이 쓰여진 아무 이벤트도 없는 버튼을 보게됨. 그리고 그 즉시 리액트앱을 초기화하여 onClick을 부착함
+// "use client"가 선언된 컴포넌트에서 import하는 모든 컴포넌트(즉, 하위컴포넌트들)는 client컴포넌트로 간주되어서 "use client" 다시 안써도됨
+// 꼭 필요한거 아니면 그냥 server component로 쓰면 됨.
+// client component는 상호작용이 있는 경우. 이벤트리스너를 추가하거나 useState, useEffect 등 hook을 사용, 브라우저api 사용 등
 
 // layout 페이지
 // 페이지 이동시 layout이 먼저 렌더링되고 url에 해당하는 페이지가 layout 컴포넌트의 children prop이 되어 렌더링됨
@@ -42,3 +45,8 @@ export default function Navigation() {
 // Metadata : 메타데이터는 병합됨.
 // layout, page에서만 export할 수 있음(일반 컴포넌트X)
 // 메타데이터는 서버컴포넌트에서만 있을 수 있음
+
+// 외부 라이브러리가 useState와 같은 코드를 가지고 있다면 server component에서 동작하지 않음
+// 1. client component를 만들고 라이브러리 import
+// 2. 1의 client component를 export
+// 3. server component에서 2에서 export한 client component를 import해서 사용할 수 있음
