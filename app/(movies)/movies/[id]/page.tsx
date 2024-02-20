@@ -1,6 +1,7 @@
 import MovieInfo, { getMovie } from "../../../../components/movie-info";
 import MovieVideos from "../../../../components/movie-videos";
 import { Suspense } from "react";
+import { getMovies } from "../../../../services/movies";
 
 interface MovieDetailProps {
   params: {
@@ -67,4 +68,12 @@ export default async function MovieDetail({
       </Suspense>
     </div>
   );
+}
+
+// generateStaticParams를 사용하면 동적라우팅 페이지도 빌드타임에 미리 정적페이지로 생성할 수 있음
+export async function generateStaticParams() {
+  const movies = await getMovies();
+  return movies.map((movie) => ({
+    id: `${movie.id}`,
+  }));
 }
