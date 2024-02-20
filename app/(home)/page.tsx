@@ -1,17 +1,11 @@
 import type { Metadata } from "next";
 import Movie from "../../components/movie";
 import styles from "../../styles/home.module.css";
-import { API_URL } from "../constants";
+import { getMovies } from "../../services/movies";
 
 export const metadata: Metadata = {
   title: "Home",
 };
-
-async function getMovies() {
-  const res = await fetch(API_URL);
-  const json = await res.json();
-  return json;
-}
 
 export default async function HomePage() {
   await new Promise((resolve) => setTimeout(resolve, 100));
